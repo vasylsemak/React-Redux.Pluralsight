@@ -1,8 +1,13 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { BrowserRouter as Router } from 'react-router-dom'
+import App from './components/App.js'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import './index.css'
 
-function Hi() {
-  return <h1>Hello!!!</h1>
-}
-
-ReactDOM.render(<Hi />, document.getElementById('app'))
+ReactDOM.render(
+  <Router>
+    <App />
+  </Router>,
+  document.getElementById('app')
+)
