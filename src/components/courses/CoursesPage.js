@@ -20,13 +20,15 @@ class CoursesPage extends React.Component {
 
   render() {
     const { courses, authors } = this.props
-    console.log('courses: ', courses)
-    console.log('authors: ', authors)
+    const coursesWithAuthor =
+      courses.length === 0 || authors.length === 0
+        ? []
+        : addAuthorName(courses, authors)
 
     return (
       <>
         <h2>Courses</h2>
-        <CourseList courses={this.props.courses} />
+        <CourseList courses={coursesWithAuthor} />
       </>
     )
   }
@@ -50,3 +52,10 @@ const mapDispatchToProps = (dispatch) => ({
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(CoursesPage)
+
+function addAuthorName(courses, authors) {
+  return courses.map((course) => {
+    const authorName = authors.find((a) => a.id === course.authorId).name
+    return { ...course, authorName }
+  })
+}
