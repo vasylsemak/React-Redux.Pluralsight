@@ -53,6 +53,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 export default connect(mapStateToProps, mapDispatchToProps)(CoursesPage)
 
+// utilitu f-n
 function addAuthorName(courses, authors) {
   return courses.map((course) => {
     const authorName = authors.find((a) => a.id === course.authorId).name
