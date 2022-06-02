@@ -11,8 +11,6 @@ const CourseForm = ({
   saving = false,
   errors = {},
 }) => {
-  console.log('course: ', course)
-
   return (
     <form onSubmit={onSave}>
       <h2>{course.id ? 'Edit' : 'Add'} Course</h2>
