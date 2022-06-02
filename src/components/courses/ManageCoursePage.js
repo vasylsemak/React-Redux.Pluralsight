@@ -32,7 +32,22 @@ function ManageCoursePage({
     }
   }, [])
 
-  return <CourseForm course={course} authors={authors} errors={errors} />
+  function handleChange(evt) {
+    const { name, value } = evt.target
+    setCourse((prevState) => ({
+      ...prevState,
+      [name]: name === 'authorId' ? parseInt(value, 10) : value,
+    }))
+  }
+
+  return (
+    <CourseForm
+      course={course}
+      authors={authors}
+      errors={errors}
+      onChange={handleChange}
+    />
+  )
 }
 
 const mapStateToProps = (state) => ({
