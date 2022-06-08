@@ -21,7 +21,7 @@ export const loadCourses = () => (dispatch) => {
   // add 1 to apiCallsInProgress state prop
   dispatch(beginApiCall())
   // fetch courses from API asyncronoulsy
-  courseApi
+  return courseApi
     .getCourses()
     .then((courses) => {
       dispatch(loadCoursesSuccess(courses))
@@ -35,7 +35,7 @@ export const saveCourse = (course) => (dispatch) => {
   // add 1 to apiCallsInProgress state prop
   dispatch(beginApiCall())
   // API async call to edit or add course
-  courseApi
+  return courseApi
     .saveCourse(course)
     .then((savedCourse) => {
       course.id

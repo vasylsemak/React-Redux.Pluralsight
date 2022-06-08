@@ -5,6 +5,7 @@ import * as courseActions from '../../redux/actions/courseActions'
 import * as authorActions from '../../redux/actions/authorActions'
 import { newCourse } from '../../../tools/mockData'
 import CourseForm from './CourseForm'
+import Spinner from '../common/Spinner'
 
 function ManageCoursePage({
   courses,
@@ -44,7 +45,9 @@ function ManageCoursePage({
       .then(() => history.push('/courses'))
   }
 
-  return (
+  return courses.length === 0 || authors.length === 0 ? (
+    <Spinner />
+  ) : (
     <CourseForm
       course={course}
       authors={authors}
@@ -60,8 +63,6 @@ const mapStateToProps = (state, ownProps) => {
   const { courses } = state
   const course =
     slug && courses.length > 0 ? findCourseBySlug(courses, slug) : newCourse
-
-  console.log('course:', course)
 
   return {
     course,

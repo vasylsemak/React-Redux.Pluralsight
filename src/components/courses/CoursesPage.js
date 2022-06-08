@@ -13,7 +13,6 @@ class CoursesPage extends React.Component {
 
   componentDidMount() {
     const { courses, authors, loadCourses, loadAuthors } = this.props
-
     if (courses.length === 0) {
       loadCourses().catch((err) => alert('Loading Courses has failed! ' + err))
     }
@@ -24,7 +23,8 @@ class CoursesPage extends React.Component {
 
   render() {
     const { isRedirectOn } = this.state
-    const { courses, authors } = this.props
+    const { courses, authors, apiCallsInProgress } = this.props
+
     const coursesWithAuthor =
       courses.length === 0 || authors.length === 0
         ? []
@@ -34,16 +34,21 @@ class CoursesPage extends React.Component {
       <Redirect to='/course' />
     ) : (
       <>
-        <Spinner />
         <h2>Courses</h2>
-        <button
-          style={{ marginBottom: 20 }}
-          className='btn btn-primary add-course'
-          onClick={() => this.setState({ isRedirectOn: true })}
-        >
-          Add Course
-        </button>
-        <CourseList courses={coursesWithAuthor} />
+        {apiCallsInProgress ? (
+          <Spinner />
+        ) : (
+          <>
+            <button
+              style={{ margin: 20 }}
+              className='btn btn-primary add-course'
+              onClick={() => this.setState({ isRedirectOn: true })}
+            >
+              Add Course
+            </button>
+            <CourseList courses={coursesWithAuthor} />
+          </>
+        )}
       </>
     )
   }
@@ -54,11 +59,13 @@ CoursesPage.propTypes = {
   authors: PropTypes.array.isRequired,
   loadCourses: PropTypes.func.isRequired,
   loadAuthors: PropTypes.func.isRequired,
+  apiCallsInProgress: PropTypes.number.isRequired,
 }
 
 const mapStateToProps = (state) => ({
   courses: state.courses,
   authors: state.authors,
+  apiCallsInProgress: state.apiCallsInProgress,
 })
 
 const mapDispatchToProps = (dispatch) => ({
