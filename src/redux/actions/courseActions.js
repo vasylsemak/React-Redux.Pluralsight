@@ -1,5 +1,6 @@
 import * as types from './actionTypes'
 import * as courseApi from '../../api/courseApi'
+import { beginApiCall } from './apiStatusActions'
 
 const loadCoursesSuccess = (courses) => ({
   type: types.LOAD_COURSES_SUCCESS,
@@ -16,8 +17,10 @@ const updateCourseSuccess = (course) => ({
   course,
 })
 
-// handling async operations
-export const loadCourses = () => (dispatch) =>
+export const loadCourses = () => (dispatch) => {
+  // add 1 to apiCallsInProgress state prop
+  dispatch(beginApiCall())
+  // fetch courses from API asyncronoulsy
   courseApi
     .getCourses()
     .then((courses) => {
@@ -26,8 +29,12 @@ export const loadCourses = () => (dispatch) =>
     .catch((err) => {
       throw err
     })
+}
 
-export const saveCourse = (course) => (dispatch) =>
+export const saveCourse = (course) => (dispatch) => {
+  // add 1 to apiCallsInProgress state prop
+  dispatch(beginApiCall())
+  // API async call to edit or add course
   courseApi
     .saveCourse(course)
     .then((savedCourse) => {
@@ -38,3 +45,4 @@ export const saveCourse = (course) => (dispatch) =>
     .catch((err) => {
       throw err
     })
+}
