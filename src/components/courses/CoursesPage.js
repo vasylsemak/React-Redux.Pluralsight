@@ -6,6 +6,7 @@ import * as courseActions from '../../redux/actions/courseActions'
 import * as authorActions from '../../redux/actions/authorActions'
 import PropTypes from 'prop-types'
 import CourseList from './CourseList'
+import Spinner from '../common/Spinner'
 
 class CoursesPage extends React.Component {
   state = { isRedirectOn: false }
@@ -33,6 +34,7 @@ class CoursesPage extends React.Component {
       <Redirect to='/course' />
     ) : (
       <>
+        <Spinner />
         <h2>Courses</h2>
         <button
           style={{ marginBottom: 20 }}
@@ -69,7 +71,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(CoursesPage)
 // utilitu f-n
 function addAuthorName(courses, authors) {
   return courses.map((course) => {
-    const authorName = authors.find((a) => a.id === course.authorId).name
+    const authorName = authors.find((a) => a.id === course.authorId).name || 'L'
     return { ...course, authorName }
   })
 }

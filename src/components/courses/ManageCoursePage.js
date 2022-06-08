@@ -55,22 +55,13 @@ function ManageCoursePage({
   )
 }
 
-ManageCoursePage.propTypes = {
-  course: PropTypes.object.isRequired,
-  courses: PropTypes.array.isRequired,
-  authors: PropTypes.array.isRequired,
-  loadCourses: PropTypes.func.isRequired,
-  saveCourse: PropTypes.func.isRequired,
-  loadAuthors: PropTypes.func.isRequired,
-  history: PropTypes.object.isRequired,
-}
-
 const mapStateToProps = (state, ownProps) => {
   const { slug } = ownProps.match.params
+  const { courses } = state
   const course =
-    slug && state.courses.length > 0
-      ? findCourseBySlug(state.courses, slug)
-      : newCourse
+    slug && courses.length > 0 ? findCourseBySlug(courses, slug) : newCourse
+
+  console.log('course:', course)
 
   return {
     course,
@@ -85,8 +76,19 @@ const mapDispatchToProps = {
   saveCourse: courseActions.saveCourse,
 }
 
+// utilitu f-n
 function findCourseBySlug(courses, slug) {
   return courses.find((c) => c.slug === slug) || null
+}
+
+ManageCoursePage.propTypes = {
+  course: PropTypes.object.isRequired,
+  courses: PropTypes.array.isRequired,
+  authors: PropTypes.array.isRequired,
+  loadCourses: PropTypes.func.isRequired,
+  saveCourse: PropTypes.func.isRequired,
+  loadAuthors: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ManageCoursePage)

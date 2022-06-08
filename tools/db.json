@@ -69,54 +69,6 @@
       "slug": "web-components-shadow-dom",
       "authorId": 1,
       "category": "HTML5"
-    },
-    {
-      "id": 11,
-      "title": "Vasyl",
-      "authorId": 3,
-      "category": "Vasyl category",
-      "createdAt": 1654196655703,
-      "slug": "vasyl"
-    },
-    {
-      "id": 12,
-      "title": "sss",
-      "authorId": 2,
-      "category": "ffffff",
-      "createdAt": 1654198457508,
-      "slug": "sss"
-    },
-    {
-      "id": 13,
-      "title": "vvvAAAAAA",
-      "authorId": 2,
-      "category": "addggbfgbgfAAAAA",
-      "createdAt": 1654198472120,
-      "slug": "vvv"
-    },
-    {
-      "id": 14,
-      "title": "ffffffffff",
-      "authorId": 1,
-      "category": "ffffffffffffffff",
-      "createdAt": 1654199618440,
-      "slug": "ffffffffff"
-    },
-    {
-      "id": 15,
-      "title": "x",
-      "authorId": 1,
-      "category": "Vasyl category",
-      "createdAt": 1654212495924,
-      "slug": "x"
-    },
-    {
-      "id": 16,
-      "title": "ydd",
-      "authorId": 1,
-      "category": "ffffff",
-      "createdAt": 1654212674697,
-      "slug": "ydd"
     }
   ],
   "authors": [
