@@ -1,6 +1,6 @@
 import * as types from './actionTypes'
 import { getAuthors } from '../../api/authorApi'
-import { beginApiCall } from './apiStatusActions'
+import { beginApiCall, apiCallError } from './apiStatusActions'
 
 const loadAuthorsSuccess = (authors) => ({
   type: types.LOAD_AUTHORS_SUCCESS,
@@ -14,6 +14,7 @@ export const loadAuthors = () => (dispatch) => {
   return getAuthors()
     .then((authors) => dispatch(loadAuthorsSuccess(authors)))
     .catch((err) => {
+      dispatch(apiCallError(err))
       throw err
     })
 }
