@@ -44,6 +44,8 @@ function ManageCoursePage({
   // handle saving form to db/API
   function handleSave(evt) {
     evt.preventDefault()
+    // exit f-n if form is not filled properly on client's side
+    if (!formIsValid()) return
     setSaving(true)
     saveCourse(course)
       .then(() => {
@@ -55,6 +57,17 @@ function ManageCoursePage({
         setSaving(false)
         setErrors({ onSave: error.message })
       })
+  }
+
+  // client side form validation
+  function formIsValid() {
+    const { title, authorId, category } = course
+    const errorObj = {}
+    if (!title) errorObj.title = 'Title is required!'
+    if (!authorId) errorObj.author = 'Author is required!'
+    if (!category) errorObj.category = 'Category is required!'
+    setErrors(errorObj)
+    return Object.keys(errorObj).length === 0
   }
 
   return courses.length === 0 || authors.length === 0 ? (
@@ -69,6 +82,16 @@ function ManageCoursePage({
       saving={saving}
     />
   )
+}
+
+ManageCoursePage.propTypes = {
+  course: PropTypes.object.isRequired,
+  courses: PropTypes.array.isRequired,
+  authors: PropTypes.array.isRequired,
+  loadCourses: PropTypes.func.isRequired,
+  saveCourse: PropTypes.func.isRequired,
+  loadAuthors: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired,
 }
 
 const mapStateToProps = (state, ownProps) => {
@@ -93,16 +116,6 @@ const mapDispatchToProps = {
 // utilitu f-n
 function findCourseBySlug(courses, slug) {
   return courses.find((c) => c.slug === slug) || null
-}
-
-ManageCoursePage.propTypes = {
-  course: PropTypes.object.isRequired,
-  courses: PropTypes.array.isRequired,
-  authors: PropTypes.array.isRequired,
-  loadCourses: PropTypes.func.isRequired,
-  saveCourse: PropTypes.func.isRequired,
-  loadAuthors: PropTypes.func.isRequired,
-  history: PropTypes.object.isRequired,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ManageCoursePage)
