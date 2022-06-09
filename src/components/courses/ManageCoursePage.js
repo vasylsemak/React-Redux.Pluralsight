@@ -32,6 +32,7 @@ function ManageCoursePage({
     }
   }, [props.course])
 
+  // handle typing in CourseForm field
   function handleChange(evt) {
     const { name, value } = evt.target
     setCourse((prevState) => ({
@@ -40,14 +41,20 @@ function ManageCoursePage({
     }))
   }
 
+  // handle saving form to db/API
   function handleSave(evt) {
     evt.preventDefault()
     setSaving(true)
-    saveCourse(course).then(() => {
-      setCourse(newCourse)
-      toast.success('Course saved!')
-      history.push('/courses')
-    })
+    saveCourse(course)
+      .then(() => {
+        setCourse(newCourse)
+        toast.success('Course saved!')
+        history.push('/courses')
+      })
+      .catch((error) => {
+        setSaving(false)
+        setErrors({ onSave: error.message })
+      })
   }
 
   return courses.length === 0 || authors.length === 0 ? (
