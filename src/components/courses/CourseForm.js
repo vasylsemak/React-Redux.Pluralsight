@@ -8,7 +8,7 @@ const CourseForm = ({
   authors,
   onSave,
   onChange,
-  saving = false,
+  saving,
   errors = {},
 }) => {
   return (
