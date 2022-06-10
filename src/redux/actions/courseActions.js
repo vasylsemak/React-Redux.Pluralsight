@@ -6,14 +6,16 @@ const loadCoursesSuccess = (courses) => ({
   type: types.LOAD_COURSES_SUCCESS,
   courses,
 })
-
 const createCourseSuccess = (course) => ({
   type: types.CREATE_COURSE_SUCCESS,
   course,
 })
-
 const updateCourseSuccess = (course) => ({
   type: types.UPDATE_COURSE_SUCCESS,
+  course,
+})
+const deleteCourseOptimistic = (course) => ({
+  type: types.DELETE_COURSE_OPTIMISTIC,
   course,
 })
 
@@ -47,4 +49,10 @@ export const saveCourse = (course) => (dispatch) => {
       dispatch(apiCallError(err))
       throw err
     })
+}
+
+export const deleteCourse = (course) => (dispatch) => {
+  // optimistic delete - not dispatching api calls and errors
+  dispatch(deleteCourseOptimistic(course))
+  return courseApi.deleteCourse(course.id)
 }

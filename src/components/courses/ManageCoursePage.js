@@ -88,8 +88,8 @@ ManageCoursePage.propTypes = {
   course: PropTypes.object.isRequired,
   courses: PropTypes.array.isRequired,
   authors: PropTypes.array.isRequired,
-  loadCourses: PropTypes.func.isRequired,
   saveCourse: PropTypes.func.isRequired,
+  loadCourses: PropTypes.func.isRequired,
   loadAuthors: PropTypes.func.isRequired,
   history: PropTypes.object.isRequired,
 }

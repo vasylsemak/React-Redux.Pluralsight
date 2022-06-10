@@ -2,9 +2,10 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Redirect } from 'react-router-dom'
+import PropTypes from 'prop-types'
+import { toast } from 'react-toastify'
 import * as courseActions from '../../redux/actions/courseActions'
 import * as authorActions from '../../redux/actions/authorActions'
-import PropTypes from 'prop-types'
 import CourseList from './CourseList'
 import Spinner from '../common/Spinner'
 
@@ -19,6 +20,12 @@ class CoursesPage extends React.Component {
     if (authors.length === 0) {
       loadAuthors().catch((err) => alert('Loading Authors has failed! ' + err))
     }
+  }
+
+  // error f-n, othervise have to bind this f-n to component
+  handleDeleteCourse = (course) => {
+    toast.success('Course deleted!')
+    this.props.deleteCourse(course)
   }
 
   render() {
@@ -46,7 +53,10 @@ class CoursesPage extends React.Component {
             >
               Add Course
             </button>
-            <CourseList courses={coursesWithAuthor} />
+            <CourseList
+              courses={coursesWithAuthor}
+              clickDelete={this.handleDeleteCourse}
+            />
           </>
         )}
       </>
@@ -59,6 +69,7 @@ CoursesPage.propTypes = {
   authors: PropTypes.array.isRequired,
   loadCourses: PropTypes.func.isRequired,
   loadAuthors: PropTypes.func.isRequired,
+  deleteCourse: PropTypes.func.isRequired,
   apiCallsInProgress: PropTypes.number.isRequired,
 }
 
@@ -70,10 +81,9 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   loadCourses: bindActionCreators(courseActions.loadCourses, dispatch),
+  deleteCourse: bindActionCreators(courseActions.deleteCourse, dispatch),
   loadAuthors: bindActionCreators(authorActions.loadAuthors, dispatch),
 })
-
-export default connect(mapStateToProps, mapDispatchToProps)(CoursesPage)
 
 // utilitu f-n
 function addAuthorName(courses, authors) {
@@ -82,3 +92,6 @@ function addAuthorName(courses, authors) {
     return { ...course, authorName }
   })
 }
+
+// EXPORT
+export default connect(mapStateToProps, mapDispatchToProps)(CoursesPage)
