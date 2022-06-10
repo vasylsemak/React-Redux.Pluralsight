@@ -23,9 +23,13 @@ class CoursesPage extends React.Component {
   }
 
   // error f-n, othervise have to bind this f-n to component
-  handleDeleteCourse = (course) => {
-    toast.success('Course deleted!')
-    this.props.deleteCourse(course)
+  handleDeleteCourse = async (course) => {
+    try {
+      toast.success('Course deleted!')
+      await this.props.deleteCourse(course)
+    } catch (error) {
+      toast.error(`Delete failed: ${error.message}`, { autoClose: false })
+    }
   }
 
   render() {
