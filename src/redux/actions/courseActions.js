@@ -6,7 +6,7 @@ const loadCoursesSuccess = (courses) => ({
   type: types.LOAD_COURSES_SUCCESS,
   courses,
 })
-const createCourseSuccess = (course) => ({
+export const createCourseSuccess = (course) => ({
   type: types.CREATE_COURSE_SUCCESS,
   course,
 })
